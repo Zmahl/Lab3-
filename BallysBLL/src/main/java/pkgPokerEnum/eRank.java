@@ -1,5 +1,7 @@
 package pkgPokerEnum;
 
+import javax.xml.bind.annotation.XmlElement;
+
 public enum eRank {
 	TWO(2), 
 	THREE(3), 
@@ -14,7 +16,8 @@ public enum eRank {
 	QUEEN(12), 
 	KING(13), 
 	ACE(14);
-
+	JOKER(99);
+	
 	private int iRankNbr;
 
 	private eRank(int iRankNbr) {

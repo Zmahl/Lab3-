@@ -5,64 +5,68 @@ import java.util.Comparator;
 import pkgPokerEnum.eRank;
 import pkgPokerEnum.eSuit;
 
-public class Card implements Comparable {
+public class Card  implements Comparable {
 
-	private eRank eRank;
 	private eSuit eSuit;
+	private eRank eRank;
 	private int iCardNbr;
-
-	public Card() {
+	private boolean bWild;
+	
+	Card()
+	{
+		
 	}
-
-	public Card(eRank eRank, eSuit eSuit, int iCardNbr) {
-		this.eRank = eRank;
+	public Card(pkgPokerEnum.eSuit eSuit, pkgPokerEnum.eRank eRank, int iCardNbr) {
+		super();
 		this.eSuit = eSuit;
+		this.eRank = eRank;
 		this.iCardNbr = iCardNbr;
 	}
-
-	public Card(eSuit eSuit, eRank eRank, int iCardNbr) {
-		this.eRank = eRank;
-		this.eSuit = eSuit;
-		this.iCardNbr = iCardNbr;
+	
+	public eSuit geteSuit() {
+		return eSuit;
 	}
 
 	public eRank geteRank() {
 		return eRank;
 	}
 
-	public eSuit geteSuit() {
-		return eSuit;
-	}
-
 	public int getiCardNbr() {
 		return iCardNbr;
-	}
-
-	public void seteRank(eRank eRank) {
-		this.eRank = eRank;
 	}
 
 	public void seteSuit(eSuit eSuit) {
 		this.eSuit = eSuit;
 	}
 
-	public int compareTo(Object o) {
-		Card c = (Card) o;
-		return c.geteRank().compareTo(this.geteRank());
+	public void seteRank(eRank eRank) {
+		this.eRank = eRank;
+	}
 
+	public boolean isbWild() {
+		return bWild;
+	}
+	public void setbWild(boolean bWild) {
+		this.bWild = bWild;
 	}
 
 	public static Comparator<Card> CardRank = new Comparator<Card>() {
 
 		public int compare(Card c1, Card c2) {
 
-			int Cno1 = c1.geteRank().getiRankNbr();
-			int Cno2 = c2.geteRank().getiRankNbr();
+		   int Cno1 = c1.geteRank().getiRankNbr();
+		   int Cno2 = c2.geteRank().getiRankNbr();
 
-			/* For descending order */
-			return Cno2 - Cno1;
+		   /*For descending order*/
+		   return Cno2 - Cno1;
 
-		}
-	};
+	   }};
+	   
+	public int compareTo(Object o) {
+	    Card c = (Card) o; 
+	    return c.geteRank().compareTo(this.geteRank()); 
 
+	}
+
+	
 }

@@ -114,6 +114,31 @@ public class Hand {
 		}
 		return h;
 	}
+	public static boolean isHandFiveOfAKind(Hand h, HandScore hs) {
+
+		int iCnt = 0;
+		boolean isFive = false;
+
+		for (eRank Rank : eRank.values()) {
+			iCnt = 0;
+			for (Card c : h.getCardsInHand()) {
+				if (c.geteRank() == Rank) {
+					iCnt++;
+				}
+			}
+			if (iCnt == 5) {
+				isFive = true;
+				break;
+			}
+		}
+
+		if (isFive) {
+			hs.setHandStrength(eHandStrength.FiveOfAKind.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
+			hs.setLoHand(0);
+		}
+		return isFive;
+	}
 
 	public static boolean isStraight(ArrayList<Card> cards, Card c) {
 		boolean isStraight = false;
