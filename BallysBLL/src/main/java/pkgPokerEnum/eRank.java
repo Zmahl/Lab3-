@@ -1,6 +1,5 @@
 package pkgPokerEnum;
 
-import javax.xml.bind.annotation.XmlElement;
 
 public enum eRank {
 	TWO(2), 
