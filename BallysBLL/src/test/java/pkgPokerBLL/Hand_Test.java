@@ -45,7 +45,7 @@ public class Hand_Test {
 		h.AddToCardsInHand(new Card(eSuit.DIAMONDS, eRank.ACE,1));
 		h.AddToCardsInHand(new Card(eSuit.DIAMONDS, eRank.ACE,1));
 		h.AddToCardsInHand(new Card(eSuit.DIAMONDS, eRank.ACE,1));
-		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.TEN,1));
+		h.AddToCardsInHand(new Card(eSuit.JOKER, eRank.JOKER,1));
 		try {
 			h = h.EvaluateHand();
 		} catch (Exception e) {
