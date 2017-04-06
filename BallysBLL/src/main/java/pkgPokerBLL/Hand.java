@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.UUID;
 
+import pkgExceptions.HandException;
+import pkgExceptions.HandException2;
 import pkgPokerEnum.eCardNo;
 import pkgPokerEnum.eHandStrength;
 import pkgPokerEnum.eRank;
@@ -39,11 +41,14 @@ public class Hand {
 	public void AddToCardsInHand(Card c) {
 		CardsInHand.add(c);
 	}
-
-	public Hand EvaluateHand() {
+		
+	
+	public Hand EvaluateHand() throws HandException{
 
 		Hand h = null;
-
+		
+		if (this.getCardsInHand().size() != 5){
+		}
 		ArrayList<Hand> ExplodedHands = ExplodeHands(this);
 
 		for (Hand hand : ExplodedHands) {
@@ -57,7 +62,24 @@ public class Hand {
 		//	TODO: Fix...  what to do if there is a tie?
 		return ExplodedHands.get(0);
 	}
-
+	
+	
+	public static Hand PickBestHand(ArrayList<Hand> Hands) throws HandException2 {
+		Collections.sort(Hands, HandRank);
+		Hand h = null;
+		ArrayList<Hand> bestHand = new ArrayList<Hand>();
+		eHandStrength highestHandStrength = Hands.get(0).getHandScore().getHandStrength();
+		for (Hand hand : Hands) {
+			if (hand.getHandScore().getHandStrength() == highestHandStrength)
+				bestHand.add(hand);
+		}
+		if (bestHand.size() > 1) {
+			throw new HandException2(bestHand);
+		} else {
+			h = bestHand.get(0);
+		}
+		return h;
+	}
 	
 	//TODO: one hand is passed in, 1, 52, 2704, etc are passed back
 	//		No jokers, 'ReturnHands' should have one hand
@@ -116,29 +138,20 @@ public class Hand {
 	}
 	public static boolean isHandFiveOfAKind(Hand h, HandScore hs) {
 
-		int iCnt = 0;
-		boolean isFive = false;
+		
+		boolean isFiveOfAKind = false;
 
-		for (eRank Rank : eRank.values()) {
-			iCnt = 0;
-			for (Card c : h.getCardsInHand()) {
-				if (c.geteRank() == Rank) {
-					iCnt++;
-				}
-			}
-			if (iCnt == 5) {
-				isFive = true;
-				break;
-			}
+		if(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank()
+				.equals(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank()))
+		{
+			isFiveOfAKind = true;
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank());
+			hs.setHandStrength(eHandStrength.FiveOfAKind);
 		}
-
-		if (isFive) {
-			hs.setHandStrength(eHandStrength.FiveOfAKind.getHandStrength());
-			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
-			hs.setLoHand(0);
-		}
-		return isFive;
+		
+		return isFiveOfAKind;
 	}
+	
 
 	public static boolean isStraight(ArrayList<Card> cards, Card c) {
 		boolean isStraight = false;

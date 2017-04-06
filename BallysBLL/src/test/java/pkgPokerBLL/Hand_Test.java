@@ -38,12 +38,28 @@ public class Hand_Test {
 
 	
 
-	
+	@Test
+	public void TestFiveOfAKind(){
+		Hand h = new Hand();
+		h.AddToCardsInHand(new Card(eSuit.DIAMONDS, eRank.ACE,1));
+		h.AddToCardsInHand(new Card(eSuit.DIAMONDS, eRank.ACE,1));
+		h.AddToCardsInHand(new Card(eSuit.DIAMONDS, eRank.ACE,1));
+		h.AddToCardsInHand(new Card(eSuit.DIAMONDS, eRank.ACE,1));
+		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.TEN,1));
+		try {
+			h = h.EvaluateHand();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		assertTrue(h.getHandScore().getHandStrength() == eHandStrength.FiveOfAKind);
+		assertTrue(h.getHandScore().getHiHand() == eRank.TEN);
+	}
 	
 	
 	
 	@Test
-	public void TestRodyalFlush() {
+	public void TestRoyalFlush() {
 		Hand h = new Hand();
  
 		

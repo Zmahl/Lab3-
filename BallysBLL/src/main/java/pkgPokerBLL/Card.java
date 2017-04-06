@@ -10,10 +10,9 @@ public class Card  implements Comparable {
 	private eSuit eSuit;
 	private eRank eRank;
 	private int iCardNbr;
-	private boolean bWild;
+	private boolean bWild = false;
 	
-	Card()
-	{
+	public Card(){
 		
 	}
 	public Card(pkgPokerEnum.eSuit eSuit, pkgPokerEnum.eRank eRank, int iCardNbr) {
@@ -23,12 +22,12 @@ public class Card  implements Comparable {
 		this.iCardNbr = iCardNbr;
 	}
 	
-	public eSuit geteSuit() {
-		return eSuit;
-	}
-
 	public eRank geteRank() {
 		return eRank;
+	}
+
+	public eSuit geteSuit() {
+		return eSuit;
 	}
 
 	public int getiCardNbr() {
@@ -43,11 +42,22 @@ public class Card  implements Comparable {
 		this.eRank = eRank;
 	}
 
-	public boolean isbWild() {
-		return bWild;
+	public boolean bWild(Card w) {
+		
+		if(w.geteRank() == eRank.JOKER && w.geteSuit() == eSuit.JOKER)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	
 	}
-	public void setbWild(boolean bWild) {
-		this.bWild = bWild;
+	public void setbWild(Card w) {
+		bWild = true;
+		w.seteRank(eRank.JOKER);
+		w.seteSuit(eSuit.JOKER);
 	}
 
 	public static Comparator<Card> CardRank = new Comparator<Card>() {
